@@ -1,33 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
-#define pii pair<int, int>
-#define PB push_back
-#define MP make_pair
-#define F first
-#define S second
-#define cls(g,x) memset(g, x, sizeof(g))
-#define all(x) x.begin(), x.end()
-#define siz(x) x.size()
-#define REP(i,a,b) for(int i=a; i<b; i++)
-const int MAX = LLONG_MAX;
-const int MIN = LLONG_MIN;
-const int MOD = 1e9+7;
-
 /*
-    Submitted By: Ranjeet Walia
+    Author: Ranjeet Walia
 */
-
-int32_t main()
+vector <vector <int> > result;
+void Search(vector <int> &v, vector <int> &subset, int i, int n)
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    if(i==n){
+        result.push_back(subset);
+        return;
+    }
+    else{
+        subset.push_back(v[i]);
+        Search(v, subset, i+1, n);
+        subset.pop_back();
+        Search(v, subset, i+1, n);
+        return;
+    }
+}
+int main()
+{
+    cout << "Enter the size of vector : ";
+    int n;
+    cin >> n;
+    vector <int> vec(n);
+    for(int i=0; i<n; i++)
+        cin >> vec[i];
 
-    int t;
-    cin >> t;
-    while(t--)
-    {
-        
+    vector <int> subset;
+    Search(vec, subset, 0, n);
+
+    for(auto x: result){
+        cout <<"{ ";
+        for(auto y: x)
+            cout << y << " ";
+        cout <<"}\n";
     }
     return 0;
 }
